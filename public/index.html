@@ -1,0 +1,60 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>CDI en ligne - College Saint-Exupery</title>
+  <meta name="description" content="Le CDI en ligne du College Saint-Exupery : catalogue, lecture en PDF et emprunts." />
+  <link rel="icon" type="image/png" href="/assets/COLLEGE_ICONE_FOND_BLANC.png" />
+  <link rel="apple-touch-icon" href="/assets/COLLEGE_ICONE_FOND_BLANC.png" />
+  <link rel="stylesheet" href="/css/style.css" />
+</head>
+<body class="auth-page">
+  <main class="auth-shell">
+    <section class="auth-brand">
+      <img class="auth-brand__logo" src="/assets/COLLEGE_LOGO_FOND_TRANSPARENT.png" alt="Logo du College Saint-Exupery" />
+      <h1>CDI en ligne</h1>
+      <p class="auth-brand__subtitle">Le centre de documentation et d'information du College Saint-Exupery, accessible partout, a tout moment.</p>
+      <ul class="auth-brand__features">
+        <li>Consultez le catalogue et lisez les livres en PDF</li>
+        <li>Empruntez un ouvrage en quelques secondes</li>
+        <li>Suivez vos emprunts et vos favoris</li>
+      </ul>
+      <p class="auth-brand__note">Acces reserve aux eleves et au personnel, avec vos identifiants Pronote.</p>
+    </section>
+
+    <section class="auth-card">
+      <div class="auth-card__head">
+        <h2>Connexion</h2>
+        <p>Entrez vos identifiants pour acceder au CDI.</p>
+      </div>
+
+      <form id="login-form" autocomplete="on" novalidate>
+        <label class="field">
+          <span>Identifiant (compte Pronote)</span>
+          <input type="text" name="login" id="login" placeholder="ex : e.dupont" autocomplete="username" required />
+        </label>
+        <label class="field">
+          <span>Mot de passe</span>
+          <div class="field__password">
+            <input type="password" name="password" id="password" placeholder="Votre mot de passe" autocomplete="current-password" required />
+            <button type="button" class="field__toggle" id="toggle-password" aria-label="Afficher le mot de passe">Afficher</button>
+          </div>
+        </label>
+
+        <div class="auth-error" id="login-error" role="alert" hidden></div>
+
+        <button type="submit" class="btn btn--primary btn--block" id="login-submit">Se connecter</button>
+      </form>
+
+      <div class="auth-footer">
+        <p>Eleves : vos identifiants sont ceux crees par le CDI (identiques a Pronote).</p>
+        <p>Personnel : contactez l'administrateur si vous avez perdu votre mot de passe.</p>
+      </div>
+    </section>
+  </main>
+
+  <script src="/js/api.js"></script>
+  <script src="/js/login.js"></script>
+</body>
+</html>

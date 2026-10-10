@@ -1,0 +1,52 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>CDI en ligne - College Saint-Exupery</title>
+  <link rel="icon" type="image/png" href="/assets/COLLEGE_ICONE_FOND_BLANC.png" />
+  <link rel="apple-touch-icon" href="/assets/COLLEGE_ICONE_FOND_BLANC.png" />
+  <link rel="stylesheet" href="/css/style.css" />
+</head>
+<body class="app-page">
+  <header class="topbar">
+    <a class="topbar__brand" href="#/catalogue">
+      <img src="/assets/COLLEGE_LOGO_FOND_TRANSPARENT.png" alt="College Saint-Exupery" />
+      <span class="topbar__titles">
+        <strong>CDI en ligne</strong>
+        <small id="brand-school">College Saint-Exupery</small>
+      </span>
+    </a>
+
+    <button class="topbar__burger" id="nav-toggle" aria-label="Menu">&#9776;</button>
+
+    <nav class="topbar__nav" id="main-nav"></nav>
+
+    <div class="topbar__user" id="user-menu">
+      <button class="user-chip" id="user-chip" aria-haspopup="true" aria-expanded="false">
+        <span class="user-chip__avatar" id="user-avatar">?</span>
+        <span class="user-chip__meta">
+          <strong id="user-name">...</strong>
+          <small id="user-role">...</small>
+        </span>
+      </button>
+      <div class="user-dropdown" id="user-dropdown" hidden>
+        <button data-action="nav" data-route="#/compte">Mon compte</button>
+        <button data-action="change-password">Changer mon mot de passe</button>
+        <button data-action="logout" class="danger">Se deconnecter</button>
+      </div>
+    </div>
+  </header>
+
+  <main id="view" class="view">
+    <div class="loader"><span class="spinner"></span> Chargement...</div>
+  </main>
+
+  <div id="modal-root"></div>
+  <div id="toast-root" class="toast-root"></div>
+
+  <script src="/js/api.js"></script>
+  <script src="/js/ui.js"></script>
+  <script src="/js/app.js"></script>
+</body>
+</html>

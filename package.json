@@ -1,0 +1,27 @@
+{
+  "name": "cdi-en-ligne",
+  "version": "2.0.0",
+  "description": "CDI en ligne - College Saint-Exupery (Vercel: Postgres + Blob)",
+  "main": "server.js",
+  "scripts": {
+    "start": "node server.js",
+    "dev": "node server.js",
+    "db": "node scripts/localpg.js",
+    "test:e2e": "node e2e-test.js"
+  },
+  "engines": {
+    "node": ">=18"
+  },
+  "dependencies": {
+    "@vercel/blob": "^2.8.1",
+    "bcryptjs": "^2.4.3",
+    "cookie-parser": "^1.4.7",
+    "dotenv": "^18.0.7",
+    "express": "^4.21.2",
+    "pg": "^8.23.1",
+    "pg-connection-string": "^2.14.1"
+  },
+  "devDependencies": {
+    "embedded-postgres": "^18.4.0-beta.17"
+  }
+}

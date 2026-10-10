@@ -1,0 +1,10 @@
+node_modules/
+.env
+.env.local
+.vercel
+*.log
+.DS_Store
+Thumbs.db
+# Fichiers sources locaux (couvertures / livres) non destines au depot
+Livres/
+uploads/
