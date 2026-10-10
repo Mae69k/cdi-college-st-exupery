@@ -46,8 +46,7 @@ router.post('/blob/upload', requireStaffUnlessCallback, async (req, res) => {
           addRandomSuffix: true,
           allowOverwrite: false
         }
-      }),
-      onUploadCompleted: async () => {}
+      })
     });
     res.json(jsonResponse);
   } catch (err) {
