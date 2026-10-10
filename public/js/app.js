@@ -15,7 +15,7 @@
 
   let blobModulePromise = null;
   async function uploadToBlob(file, prefix) {
-    if (!blobModulePromise) blobModulePromise = import('/js/vendor/blob-client.js');
+    if (!blobModulePromise) blobModulePromise = import('/js/vendor/blob-client.js?v=2');
     let mod;
     try {
       mod = await blobModulePromise;
