@@ -1,7 +1,8 @@
 const { del } = require('@vercel/blob');
 
 function hasToken() {
-  return !!process.env.BLOB_READ_WRITE_TOKEN;
+  // OIDC (BLOB_STORE_ID) ou token statique
+  return !!(process.env.BLOB_READ_WRITE_TOKEN || process.env.BLOB_STORE_ID);
 }
 
 async function removeBlob(url) {

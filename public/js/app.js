@@ -24,7 +24,7 @@
     }
     const safe = (file.name || 'fichier').replace(/[^\w.\-]+/g, '_');
     const pathname = `${prefix}/${Date.now()}-${safe}`;
-    const result = await mod.upload(pathname, file, {
+    const result = await mod.uploadPresigned(pathname, file, {
       access: 'public',
       handleUploadUrl: '/api/blob/upload'
     });

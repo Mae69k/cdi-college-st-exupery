@@ -1,5 +1,6 @@
 const express = require('express');
-const { handleUpload } = require('@vercel/blob/client');
+const { handleUploadPresigned } = require('@vercel/blob/client');
+const { issueSignedToken } = require('@vercel/blob');
 const db = require('../db');
 const auth = require('../auth');
 const util = require('../util');
@@ -9,22 +10,42 @@ const router = express.Router();
 
 /* ------------------------------------------------------------- upload Blob */
 
-router.post('/blob/upload', auth.requireStaff, async (req, res) => {
+const BLOB_ALLOWED_TYPES = [
+  'application/pdf',
+  'image/png', 'image/jpeg', 'image/jpg', 'image/webp', 'image/gif', 'image/avif', 'image/bmp'
+];
+const BLOB_MAX_SIZE = 80 * 1024 * 1024;
+
+// Le callback "blob.upload-completed" est appele par Vercel (sans cookie) :
+// on le laisse passer, sa signature est verifiee par handleUploadPresigned.
+function requireStaffUnlessCallback(req, res, next) {
+  if (req.body && req.body.type === 'blob.upload-completed') return next();
+  return auth.requireStaff(req, res, next);
+}
+
+router.post('/blob/upload', requireStaffUnlessCallback, async (req, res) => {
   if (!blob.hasToken()) {
-    return res.status(500).json({ error: 'Stockage Blob non configure (BLOB_READ_WRITE_TOKEN manquant).' });
+    return res.status(500).json({ error: 'Stockage Blob non configure.' });
   }
   try {
-    const jsonResponse = await handleUpload({
+    const jsonResponse = await handleUploadPresigned({
       body: req.body,
       request: req,
-      onBeforeGenerateToken: async () => ({
-        allowedContentTypes: [
-          'application/pdf',
-          'image/png', 'image/jpeg', 'image/jpg', 'image/webp', 'image/gif', 'image/avif', 'image/bmp'
-        ],
-        maximumSizeInBytes: 80 * 1024 * 1024,
-        addRandomSuffix: true,
-        tokenPayload: JSON.stringify({ uid: req.user.id })
+      getSignedToken: async (pathname) => ({
+        token: await issueSignedToken({
+          pathname,
+          operations: ['put'],
+          allowedContentTypes: BLOB_ALLOWED_TYPES,
+          maximumSizeInBytes: BLOB_MAX_SIZE,
+          validUntil: Date.now() + 60 * 60 * 1000
+        }),
+        urlOptions: {
+          allowedContentTypes: BLOB_ALLOWED_TYPES,
+          maximumSizeInBytes: BLOB_MAX_SIZE,
+          validUntil: Date.now() + 10 * 60 * 1000,
+          addRandomSuffix: true,
+          allowOverwrite: false
+        }
       }),
       onUploadCompleted: async () => {}
     });
